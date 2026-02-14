@@ -1,10 +1,10 @@
-// Create hearts effect - PERFECT BALANCE version
+// Create hearts effect - FULL VERSION with all features!
 function createHearts() {
     const hearts = document.querySelector('.hearts');
     if (!hearts) return;
     
-    // Balanced heart count (5-9 hearts)
-    const heartCount = Math.floor(Math.random() * 5) + 5; // 5 to 9 hearts
+    // Create multiple hearts (8-15 hearts per call)
+    const heartCount = Math.floor(Math.random() * 8) + 8; // 8 to 15 hearts
     
     for (let i = 0; i < heartCount; i++) {
         setTimeout(() => {
@@ -12,67 +12,85 @@ function createHearts() {
             heart.classList.add('heart');
             heart.innerHTML = '❤';
             
+            // Random position across entire screen
             heart.style.left = Math.random() * 100 + '%';
             
-            // Good size range (8-50px)
-            heart.style.fontSize = (Math.random() * 42 + 8) + 'px';
+            // HUGE variety in sizes (5-80px)
+            heart.style.fontSize = (Math.random() * 75 + 5) + 'px';
             
-            // Medium animation speeds (2-7 seconds)
-            heart.style.animationDuration = (Math.random() * 5 + 2) + 's';
+            // Random animation speeds (1-12 seconds)
+            heart.style.animationDuration = (Math.random() * 11 + 1) + 's';
             
-            // Nice color variety
+            // RAINBOW of heart colors
             const colors = [
                 '#ff4757', '#ff6b6b', '#ff8e8e', '#ffb8b8', 
-                '#ff69b4', '#ff1493', '#ff007f', '#ff4d4d',
-                '#ff3366', '#ff3399'
+                '#ff69b4', '#ff1493', '#ff007f', '#ff4d4d', 
+                '#ff3333', '#ff1a1a', '#ff3366', '#ff3399',
+                '#ff00ff', '#ff44aa', '#ff5577', '#ff6677',
+                '#ff7777', '#ff8888', '#ff9999', '#ffaaaa'
             ];
             heart.style.color = colors[Math.floor(Math.random() * colors.length)];
             
-            // Mix of starting positions
-            if (Math.random() > 0.7) {
-                heart.style.top = '0';
-            } else {
+            // Random starting position (top, bottom, left, right)
+            const startPosition = Math.random();
+            if (startPosition < 0.25) {
                 heart.style.bottom = '0';
+                heart.style.left = Math.random() * 100 + '%';
+            } else if (startPosition < 0.5) {
+                heart.style.top = '0';
+                heart.style.left = Math.random() * 100 + '%';
+            } else if (startPosition < 0.75) {
+                heart.style.left = '0';
+                heart.style.top = Math.random() * 100 + '%';
+            } else {
+                heart.style.right = '0';
+                heart.style.top = Math.random() * 100 + '%';
             }
             
-            // Good opacity
-            heart.style.opacity = Math.random() * 0.6 + 0.4;
+            // Random opacity
+            heart.style.opacity = Math.random() * 0.7 + 0.3;
             
-            // Moderate rotation
-            heart.style.transform = `rotate(${Math.random() * 180 - 90}deg)`;
+            // Random rotation
+            heart.style.transform = `rotate(${Math.random() * 720}deg)`;
+            
+            // Random blur for dreamy effect
+            if (Math.random() > 0.7) {
+                heart.style.filter = `blur(${Math.random() * 3}px)`;
+            }
             
             hearts.appendChild(heart);
             
+            // Remove heart after animation
             setTimeout(() => {
                 if (heart.parentNode) heart.remove();
-            }, 9000);
-        }, i * 40);
+            }, 12000);
+        }, i * 30);
     }
 }
 
-// Start hearts with GOOD intervals
+// Start hearts with MULTIPLE INTERVALS
 document.addEventListener('DOMContentLoaded', () => {
-    // 3 balanced intervals
+    setInterval(createHearts, 100);
     setInterval(createHearts, 200);
-    setInterval(createHearts, 350);
-    setInterval(createHearts, 500);
+    setInterval(createHearts, 300);
+    setInterval(createHearts, 400);
     
-    // Nice heart bursts (35 hearts every 4 seconds)
+    // Add MASSIVE heart bursts every 3 seconds
     setInterval(() => {
-        for (let i = 0; i < 35; i++) {
+        for (let i = 0; i < 40; i++) {
             setTimeout(() => {
                 createSingleHeart();
             }, i * 15);
         }
-    }, 4000);
+    }, 3000);
     
-    // Continuous gentle stream
+    // Continuous heart stream
     setInterval(() => {
         createSingleHeart();
-    }, 150);
+    }, 80);
 });
 
-// Helper function for single heart
+// Helper function to create a single heart
 function createSingleHeart() {
     const hearts = document.querySelector('.hearts');
     if (!hearts) return;
@@ -81,10 +99,10 @@ function createSingleHeart() {
     heart.classList.add('heart');
     heart.innerHTML = '❤';
     heart.style.left = Math.random() * 100 + '%';
-    heart.style.fontSize = (Math.random() * 30 + 12) + 'px';
-    heart.style.animationDuration = (Math.random() * 5 + 2.5) + 's';
-    heart.style.color = ['#ff4757', '#ff6b6b', '#ff8e8e', '#ff69b4'][Math.floor(Math.random() * 4)];
-    heart.style.opacity = Math.random() * 0.7 + 0.3;
+    heart.style.fontSize = (Math.random() * 40 + 10) + 'px';
+    heart.style.animationDuration = (Math.random() * 7 + 2) + 's';
+    heart.style.color = ['#ff4757', '#ff6b6b', '#ff8e8e', '#ffb8b8', '#ff69b4'][Math.floor(Math.random() * 5)];
+    heart.style.opacity = Math.random() * 0.9 + 0.1;
     hearts.appendChild(heart);
     
     setTimeout(() => {
@@ -92,103 +110,115 @@ function createSingleHeart() {
     }, 7000);
 }
 
-// BALANCED button movement - good speed, good range
+// FIXED: Button stays VISIBLE on screen but still fun!
 function moveButton(button) {
     const container = button.parentElement;
     
     container.style.position = "relative";
     container.style.overflow = "visible";
     
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
+    // Get container boundaries
     const containerRect = container.getBoundingClientRect();
     const buttonWidth = button.offsetWidth;
     const buttonHeight = button.offsetHeight;
     
-    // Good movement range (full screen but reasonable)
-    const maxX = viewportWidth - buttonWidth - containerRect.left + 350;
-    const maxY = viewportHeight - buttonHeight - containerRect.top + 350;
-    const minX = -300;
-    const minY = -300;
+    // KEEP BUTTON VISIBLE - within container with padding
+    const padding = 10;
+    const maxX = Math.max(0, containerRect.width - buttonWidth - padding * 2);
+    const maxY = Math.max(0, containerRect.height - buttonHeight - padding * 2);
     
-    const x = Math.random() * (maxX - minX) + minX;
-    const y = Math.random() * (maxY - minY) + minY;
+    // Still fun movement but within bounds
+    const x = Math.random() * maxX + padding;
+    const y = Math.random() * maxY + padding;
     
-    // GOOD speed (0.12s - noticeable but still quick)
-    button.style.transition = "all 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+    // FAST movement
+    button.style.transition = "all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)";
     button.style.position = "absolute";
     button.style.left = `${x}px`;
     button.style.top = `${y}px`;
+    button.style.zIndex = "9999";
     
-    // Nice rotation
-    button.style.transform = `rotate(${Math.random() * 15 - 7.5}deg) scale(${Math.random() * 0.2 + 0.9})`;
+    // WILD rotations
+    button.style.transform = `rotate(${Math.random() * 30 - 15}deg) scale(${Math.random() * 0.4 + 0.8})`;
     
-    // Good variety of messages
+    // MANY funny messages
     const funnyMessages = [
         "Missed me! 😜", "Too slow! 🏃", "Catch me! 🦋", "Nope! 🙈", 
-        "Try again! 😋", "Almost! 💫", "Not today! ✨", "Zoom! ⚡",
-        "Poof! 🦋", "Whoosh! 💨", "Boing! 🌟", "Bye bye! 🎈",
-        "So close! 😛", "Good try! 👋"
+        "Try again! 😋", "Almost! 💫", "Not today! ✨", "😜 Too slow!",
+        "🏃 Gone!", "⚡ Zoom!", "🦋 Poof!", "✨ Missed me!",
+        "🎯 Nope!", "💨 Whoosh!", "🎪 Catch me!", "🌟 Boing!",
+        "🎈 Bye bye!", "You can't! 🏃‍♂️", "So close! 😛", "Maybe later! ⏰",
+        "Never! 😝", "Good try! 👋", "🏎️ VROOM!", "🚀 To the moon!",
+        "⚡ Lightning!", "🌀 Tornado!", "🎢 Wheee!", "🪄 Magic!",
+        "👻 Ghost mode!", "💨 Gone with wind!"
     ];
     
     button.textContent = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
     
-    // Nice colors
-    const colors = ['#ff4757', '#ff6b6b', '#ff8e8e', '#ff69b4', '#ff4d4d'];
+    // RANDOM COLORS
+    const colors = [
+        '#ff4757', '#ff6b6b', '#ff8e8e', '#ffb8b8', '#ff6b4a', 
+        '#ff4d4d', '#ff3333', '#ff1744', '#ff0055', '#ff44aa'
+    ];
     button.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    button.style.border = `1px solid white`;
+    button.style.border = `2px solid white`;
+    button.style.color = 'white';
+    button.style.fontWeight = 'bold';
+    button.style.boxShadow = '0 0 15px rgba(255,0,0,0.5)';
     
+    // Reset button after a moment
     setTimeout(() => {
         button.textContent = "No 😢";
         button.style.backgroundColor = "#333";
         button.style.transform = "rotate(0deg) scale(1)";
         button.style.border = "none";
-    }, 450);
+        button.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.1)";
+    }, 500);
     
-    // Moderate confetti at new location
+    // CONFETTI BURST at new location
     const buttonRect = button.getBoundingClientRect();
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
         setTimeout(() => {
             confetti({
-                particleCount: 15,
-                spread: 60,
+                particleCount: 20,
+                spread: 70,
                 origin: { 
-                    x: Math.min(1, Math.max(0, (buttonRect.left + buttonWidth/2) / viewportWidth)),
-                    y: Math.min(1, Math.max(0, (buttonRect.top + buttonHeight/2) / viewportHeight))
+                    x: Math.min(1, Math.max(0, (buttonRect.left + buttonWidth/2) / window.innerWidth)),
+                    y: Math.min(1, Math.max(0, (buttonRect.top + buttonHeight/2) / window.innerHeight))
                 },
-                colors: ['#ff6b6b', '#ff8e8e', '#ffb8b8', '#ff69b4'],
-                startVelocity: 30
+                colors: ['#ff6b6b', '#ff8e8e', '#ffb8b8', '#ffd93d', '#ff69b4'],
+                startVelocity: 35
             });
-        }, i * 60);
+        }, i * 50);
     }
     
-    // Good amount of hearts where button was
-    for (let i = 0; i < 5; i++) {
+    // Create HEARTS where button was
+    for (let i = 0; i < 8; i++) {
         setTimeout(() => {
             createHeartAtPosition(
                 buttonRect.left + (Math.random() * 150 - 75), 
                 buttonRect.top + (Math.random() * 150 - 75)
             );
-        }, i * 60);
+        }, i * 40);
     }
 }
 
-// Create heart at position (nice version)
+// Create heart at specific position
 function createHeartAtPosition(x, y) {
     const hearts = document.querySelector('.hearts');
     if (!hearts) return;
     
-    for (let h = 0; h < 2; h++) {
+    for (let h = 0; h < 3; h++) {
         setTimeout(() => {
             const heart = document.createElement('div');
             heart.classList.add('heart');
             heart.innerHTML = '❤';
-            heart.style.left = ((x + (Math.random() * 80 - 40)) / window.innerWidth * 100) + '%';
-            heart.style.top = ((y + (Math.random() * 80 - 40)) / window.innerHeight * 100) + '%';
-            heart.style.fontSize = (Math.random() * 25 + 10) + 'px';
+            heart.style.left = ((x + (Math.random() * 100 - 50)) / window.innerWidth * 100) + '%';
+            heart.style.top = ((y + (Math.random() * 100 - 50)) / window.innerHeight * 100) + '%';
+            heart.style.fontSize = (Math.random() * 30 + 10) + 'px';
             heart.style.position = 'fixed';
-            heart.style.animation = `float ${Math.random() * 2.5 + 2}s linear forwards`;
-            heart.style.color = ['#ff4757', '#ff6b6b', '#ff69b4'][Math.floor(Math.random() * 3)];
+            heart.style.animation = `float ${Math.random() * 3 + 2}s linear forwards`;
+            heart.style.color = ['#ff4757', '#ff6b6b', '#ff8e8e', '#ff69b4'][Math.floor(Math.random() * 4)];
             hearts.appendChild(heart);
             
             setTimeout(() => {
@@ -198,42 +228,53 @@ function createHeartAtPosition(x, y) {
     }
 }
 
-// Balanced button triggers
-function makeNoButtonPerfect() {
+// FIXED: Button only on Step 2 but with ALL triggers
+function makeNoButtonUltimate() {
     const noButton = document.querySelector('.btn-no');
     if (!noButton) return;
     
-    // Main triggers
-    const events = ['mouseenter', 'click', 'touchstart', 'mouseover'];
+    // Reset position
+    noButton.style.position = "relative";
+    noButton.style.left = "0";
+    noButton.style.top = "0";
+    noButton.style.transform = "rotate(0deg)";
+    noButton.style.backgroundColor = "#333";
+    noButton.textContent = "No 😢";
+    noButton.style.display = "inline-block";
+    
+    // ALL triggers
+    const events = ['mouseenter', 'mouseover', 'click', 'touchstart', 'dblclick'];
     
     events.forEach(eventType => {
         noButton.addEventListener(eventType, function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            // Move 3 times - good balance
+            // Move multiple times
             moveButton(this);
-            setTimeout(() => moveButton(this), 40);
-            setTimeout(() => moveButton(this), 80);
+            setTimeout(() => moveButton(this), 50);
+            setTimeout(() => moveButton(this), 100);
             
-            // Nice confetti
-            triggerConfetti();
+            // Confetti burst
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => triggerConfetti(), i * 70);
+            }
             
-            // Good amount of hearts
-            for (let i = 0; i < 12; i++) {
-                setTimeout(() => createHearts(), i * 20);
+            // Heart explosion
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => createHearts(), i * 15);
             }
         });
     });
     
-    // Move automatically every 1.2 seconds
+    // Move automatically
     setInterval(() => {
         if (document.getElementById('step2').classList.contains('active')) {
             moveButton(noButton);
         }
-    }, 1200);
+    }, 800);
     
-    // Balanced proximity detection (700px)
+    // Proximity detection
     document.addEventListener('mousemove', function(e) {
         if (!document.getElementById('step2').classList.contains('active')) return;
         
@@ -243,40 +284,60 @@ function makeNoButtonPerfect() {
             Math.pow(e.clientY - (buttonRect.top + buttonRect.height/2), 2)
         );
         
-        if (distance < 700 && Math.random() < 0.4) {
+        if (distance < 400 && Math.random() < 0.3) {
             moveButton(noButton);
         }
     });
 }
 
-// Navigation functions with balanced celebration
+// Navigation functions
 function goToStep2() {
     document.getElementById('step1').classList.remove('active');
     document.getElementById('step2').classList.add('active');
+    document.getElementById('step3').classList.remove('active');
     
+    // Show and reset No button
+    const noButton = document.querySelector('.btn-no');
+    if (noButton) {
+        noButton.style.display = "inline-block";
+        noButton.style.position = "relative";
+        noButton.style.left = "0";
+        noButton.style.top = "0";
+        noButton.style.transform = "rotate(0deg)";
+    }
+    
+    // Celebration
+    for (let i = 0; i < 10; i++) {
+        setTimeout(() => triggerConfetti(), i * 70);
+    }
+    
+    for (let i = 0; i < 40; i++) {
+        setTimeout(() => createHearts(), i * 15);
+    }
+    
+    setTimeout(() => {
+        makeNoButtonUltimate();
+    }, 100);
+}
+
+function goToStep3() {
+    document.getElementById('step1').classList.remove('active');
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step3').classList.add('active');
+    
+    // Hide No button on step 3
+    const noButton = document.querySelector('.btn-no');
+    if (noButton) {
+        noButton.style.display = "none";
+    }
+    
+    // Celebration
     for (let i = 0; i < 8; i++) {
         setTimeout(() => triggerConfetti(), i * 80);
     }
     
     for (let i = 0; i < 30; i++) {
         setTimeout(() => createHearts(), i * 20);
-    }
-    
-    setTimeout(() => {
-        makeNoButtonPerfect();
-    }, 100);
-}
-
-function goToStep3() {
-    document.getElementById('step2').classList.remove('active');
-    document.getElementById('step3').classList.add('active');
-    
-    for (let i = 0; i < 8; i++) {
-        setTimeout(() => triggerConfetti(), i * 80);
-    }
-    
-    for (let i = 0; i < 25; i++) {
-        setTimeout(() => createHearts(), i * 30);
     }
 }
 
@@ -285,27 +346,53 @@ function finalStep() {
     document.querySelector('.final-message').style.display = 'block';
     document.querySelector('.facebook-btn').style.display = 'inline-block';
     
-    for (let i = 0; i < 15; i++) {
+    // Hide No button on final step
+    const noButton = document.querySelector('.btn-no');
+    if (noButton) {
+        noButton.style.display = "none";
+    }
+    
+    // MASSIVE final celebration
+    for (let i = 0; i < 20; i++) {
         setTimeout(() => {
             triggerConfetti();
             createHearts();
-        }, i * 80);
+        }, i * 70);
     }
     
+    // Continuous celebration
     let count = 0;
     const interval = setInterval(() => {
         triggerConfetti();
         createHearts();
         count++;
         if (count > 15) clearInterval(interval);
-    }, 180);
+    }, 150);
 }
 
 function triggerConfetti() {
     confetti({
         particleCount: 60,
-        spread: 75,
+        spread: 80,
         origin: { y: 0.6 },
-        colors: ['#ff4757', '#ff6b6b', '#ff8e8e', '#ffb8b8', '#ff69b4']
+        colors: ['#ff4757', '#ff6b6b', '#ff8e8e', '#ffb8b8', '#ffd93d', '#ff69b4']
+    });
+    
+    // Side confetti
+    confetti({
+        particleCount: 30,
+        angle: Math.random() * 360,
+        spread: 50,
+        origin: { x: Math.random(), y: Math.random() * 0.7 },
+        colors: ['#ff6b6b', '#ff8e8e', '#ffb8b8']
     });
 }
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    // Hide No button initially
+    const noButton = document.querySelector('.btn-no');
+    if (noButton) {
+        noButton.style.display = "none";
+    }
+});
