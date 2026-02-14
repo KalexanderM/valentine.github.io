@@ -49,8 +49,9 @@ function finalStep() {
 
 function triggerConfetti() {
     confetti({
-        particleCount: 100,
-        spread: 70,
+        particleCount: 1000,
+        spread: 700,
         origin: { y: 0.6 }
     });
+
 }
