@@ -1,73 +1,5 @@
-// Create hearts effect - NOW WITH 3X MORE HEARTS!
+// Create hearts effect
 function createHearts() {
-    const hearts = document.querySelector('.hearts');
-    if (!hearts) return;
-    
-    // Create MULTIPLE hearts at once (3-5 hearts per call)
-    const heartCount = Math.floor(Math.random() * 3) + 3; // 3 to 5 hearts
-    
-    for (let i = 0; i < heartCount; i++) {
-        setTimeout(() => {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤';
-            
-            // Random position across entire screen
-            heart.style.left = Math.random() * 100 + '%';
-            
-            // MORE VARIETY in sizes (10-50px)
-            heart.style.fontSize = (Math.random() * 40 + 10) + 'px';
-            
-            // MORE VARIETY in animation speeds (2-8 seconds)
-            heart.style.animationDuration = (Math.random() * 6 + 2) + 's';
-            
-            // MORE VARIETY in colors (pink, red, purple, etc)
-            const colors = ['#ff4757', '#ff6b6b', '#ff8e8e', '#ffb8b8', '#ff69b4', '#ff1493', '#ff007f', '#ff4d4d', '#ff3333', '#ff1a1a'];
-            heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-            
-            // Random starting position (sometimes from top, sometimes from bottom)
-            if (Math.random() > 0.5) {
-                heart.style.bottom = '0';
-            } else {
-                heart.style.top = '0';
-            }
-            
-            // Random opacity
-            heart.style.opacity = Math.random() * 0.7 + 0.3;
-            
-            // Random rotation
-            heart.style.transform = `rotate(${Math.random() * 360}deg)`;
-            
-            hearts.appendChild(heart);
-            
-            // Remove heart after animation
-            setTimeout(() => {
-                if (heart.parentNode) heart.remove();
-            }, 8000); // Longer time for bigger hearts
-        }, i * 100); // Stagger the hearts a bit
-    }
-}
-
-// Start hearts with MULTIPLE intervals for MORE HEARTS!
-document.addEventListener('DOMContentLoaded', () => {
-    // Run heart creation MULTIPLE times per second
-    setInterval(createHearts, 200); // Every 200ms (was 300ms)
-    setInterval(createHearts, 300); // Every 300ms
-    setInterval(createHearts, 400); // Every 400ms
-    
-    // Add extra heart bursts every few seconds
-    setInterval(() => {
-        // Create a BURST of hearts (10-15 at once)
-        for (let i = 0; i < 15; i++) {
-            setTimeout(() => {
-                createSingleHeart();
-            }, i * 50);
-        }
-    }, 5000); // Every 5 seconds
-});
-
-// Helper function to create a single heart (for bursts)
-function createSingleHeart() {
     const hearts = document.querySelector('.hearts');
     if (!hearts) return;
     
@@ -75,18 +7,20 @@ function createSingleHeart() {
     heart.classList.add('heart');
     heart.innerHTML = '❤';
     heart.style.left = Math.random() * 100 + '%';
-    heart.style.fontSize = (Math.random() * 30 + 10) + 'px';
-    heart.style.animationDuration = (Math.random() * 5 + 2) + 's';
-    heart.style.color = ['#ff4757', '#ff6b6b', '#ff8e8e', '#ffb8b8'][Math.floor(Math.random() * 4)];
-    heart.style.opacity = Math.random() * 0.8 + 0.2;
+    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+    heart.style.animationDuration = Math.random() * 3 + 2 + 's';
     hearts.appendChild(heart);
-    
     setTimeout(() => {
         if (heart.parentNode) heart.remove();
     }, 5000);
 }
 
-// ULTIMATE VERSION: Super fast + All fun features + MORE HEARTS!
+// Start hearts when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    setInterval(createHearts, 300);
+});
+
+// ULTIMATE VERSION: Super fast + All fun features!
 function moveButton(button) {
     const container = button.parentElement;
     
@@ -180,15 +114,11 @@ function moveButton(button) {
         decay: 0.9
     });
     
-    // ADDED: Create MULTIPLE hearts where button was
-    for (let i = 0; i < 3; i++) {
-        setTimeout(() => {
-            createHeartAtPosition(buttonRect.left + (Math.random() * 50 - 25), buttonRect.top + (Math.random() * 50 - 25));
-        }, i * 50);
-    }
+    // ADDED: Create a heart where button was
+    createHeartAtPosition(buttonRect.left, buttonRect.top);
 }
 
-// Create heart at specific position
+// NEW: Create heart at specific position
 function createHeartAtPosition(x, y) {
     const hearts = document.querySelector('.hearts');
     if (!hearts) return;
@@ -198,10 +128,10 @@ function createHeartAtPosition(x, y) {
     heart.innerHTML = '❤';
     heart.style.left = (x / window.innerWidth * 100) + '%';
     heart.style.top = (y / window.innerHeight * 100) + '%';
-    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+    heart.style.fontSize = '25px';
     heart.style.position = 'fixed';
     heart.style.animation = 'float 2s linear forwards';
-    heart.style.color = ['#ff4757', '#ff6b6b', '#ff8e8e'][Math.floor(Math.random() * 3)];
+    heart.style.color = '#ff4757';
     hearts.appendChild(heart);
     
     setTimeout(() => {
@@ -235,9 +165,9 @@ function makeNoButtonUltimate() {
             // EXTRA confetti
             triggerConfetti();
             
-            // Create MULTIPLE hearts (10-15 at once!)
-            for (let i = 0; i < 15; i++) {
-                setTimeout(() => createHearts(), i * 20);
+            // Create multiple hearts
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => createHearts(), i * 50);
             }
         });
     });
@@ -262,11 +192,6 @@ function makeNoButtonUltimate() {
         // Move if mouse within 400px (increased range)
         if (distance < 400 && Math.random() < 0.4) {
             moveButton(noButton);
-            
-            // Add some hearts when mouse gets close
-            if (Math.random() < 0.3) {
-                createHearts();
-            }
         }
     });
     
@@ -295,9 +220,9 @@ function goToStep2() {
         setTimeout(() => triggerConfetti(), i * 100);
     }
     
-    // Create MANY hearts (30 hearts!)
-    for (let i = 0; i < 30; i++) {
-        setTimeout(() => createHearts(), i * 30);
+    // Create many hearts
+    for (let i = 0; i < 10; i++) {
+        setTimeout(() => createHearts(), i * 50);
     }
     
     // Activate ultimate No button
@@ -310,14 +235,9 @@ function goToStep3() {
     document.getElementById('step2').classList.remove('active');
     document.getElementById('step3').classList.add('active');
     
-    // Celebration with HEARTS
+    // Celebration
     for (let i = 0; i < 8; i++) {
         setTimeout(() => triggerConfetti(), i * 150);
-    }
-    
-    // Heart explosion
-    for (let i = 0; i < 20; i++) {
-        setTimeout(() => createHearts(), i * 50);
     }
 }
 
@@ -327,21 +247,20 @@ function finalStep() {
     document.querySelector('.facebook-btn').style.display = 'inline-block';
     
     // MASSIVE final celebration
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
         setTimeout(() => {
             triggerConfetti();
             createHearts();
-        }, i * 70);
+        }, i * 100);
     }
     
-    // Continuous confetti for 5 seconds
+    // Continuous confetti for 3 seconds
     let count = 0;
     const interval = setInterval(() => {
         triggerConfetti();
-        createHearts(); // Add hearts too!
         count++;
-        if (count > 20) clearInterval(interval);
-    }, 150);
+        if (count > 15) clearInterval(interval);
+    }, 200);
 }
 
 function triggerConfetti() {
