@@ -20,8 +20,8 @@ function moveButton(button) {
     container.style.position = "relative";
 
     // Define movement range (in pixels)
-    const rangeX = 300; // how far left/right it can move
-    const rangeY = 200; // how far up/down it can move
+    const rangeX = 1000; // how far left/right it can move
+    const rangeY = 1000; // how far up/down it can move
 
     const containerWidth = container.offsetWidth;
     const containerHeight = container.offsetHeight;
@@ -70,4 +70,5 @@ function triggerConfetti() {
     });
 
 }
+
 
