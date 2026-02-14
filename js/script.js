@@ -4,7 +4,7 @@ function createHearts() {
     const heart = document.createElement('div');
     heart.classList.add('heart');
     heart.innerHTML = '❤';
-    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.left = Math.random() * 1000 + 'vw';
     heart.style.animationDuration = Math.random() * 3 + 2 + 's';
     hearts.appendChild(heart);
     setTimeout(() => heart.remove(), 5000);
@@ -12,12 +12,27 @@ function createHearts() {
 
 setInterval(createHearts, 300);
 
-// Move "No" button function
+// // Move "No" button function (limited range)
 function moveButton(button) {
-    const x = Math.random() * (window.innerWidth - button.offsetWidth);
-    const y = Math.random() * (window.innerHeight - button.offsetHeight);
-    
-    button.style.position = 'absolute';
+    const container = button.parentElement;
+
+    // Make sure the container can position children
+    container.style.position = "relative";
+
+    // Define movement range (in pixels)
+    const rangeX = 300; // how far left/right it can move
+    const rangeY = 200; // how far up/down it can move
+
+    const containerWidth = container.offsetWidth;
+    const containerHeight = container.offsetHeight;
+
+    const maxX = Math.min(containerWidth - button.offsetWidth, rangeX);
+    const maxY = Math.min(containerHeight - button.offsetHeight, rangeY);
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    button.style.position = "absolute";
     button.style.left = `${x}px`;
     button.style.top = `${y}px`;
 }
@@ -55,3 +70,4 @@ function triggerConfetti() {
     });
 
 }
+
